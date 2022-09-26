@@ -34,4 +34,38 @@ describe("SummaryForm", () => {
     expect(agreeCheckbox).not.toBeChecked();
     expect(confirmOrderBtn).toBeDisabled();
   });
+
+  test("Popover hidden by default", () => {
+    render(<SummaryForm />);
+    const hiddenPopover = screen.queryByText(
+      /No ice cream will actually be delivered/i
+    );
+
+    expect(hiddenPopover).not.toBeInTheDocument();
+  });
+
+  test("Popover showing when user hover on Terms and Conditions", async () => {
+    render(<SummaryForm />);
+    const tearmsAndConditionals = screen.getByText(/Terms and Conditions/i);
+
+    await userEvent.hover(tearmsAndConditionals);
+    const popover = screen.getByText(
+      /No ice cream will actually be delivered/i
+    );
+
+    expect(popover).toBeInTheDocument();
+  });
+
+  test("Popover hidden when user unhover on Terms and Conditions", async () => {
+    render(<SummaryForm />);
+    const tearmsAndConditionals = screen.getByText(/Terms and Conditions/i);
+    await userEvent.hover(tearmsAndConditionals);
+    const popover = screen.getByText(
+      /No ice cream will actually be delivered/i
+    );
+
+    await userEvent.unhover(tearmsAndConditionals);
+
+    expect(popover).not.toBeInTheDocument();
+  });
 });
