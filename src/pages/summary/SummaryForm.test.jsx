@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import SummaryForm from "../SummaryForm";
+import SummaryForm from "./SummaryForm";
 
 describe("SummaryForm", () => {
   test("When we click on uncheked checkbox checkbox become checked and confirm order button become enabled", async () => {

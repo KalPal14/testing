@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Options from "../Options";
+import Options from "./Options";
 
 describe("Options", () => {
   test("Checking Scoops render elements", async () => {
