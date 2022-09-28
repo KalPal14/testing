@@ -1,14 +1,8 @@
 import React from "react";
-import Options from "./pages/entry/Options";
+import OrderEntry from "./pages/entry/OrderEntry";
 
 function App() {
-  return (
-    <div>
-      <Options optionType="scoops" />
-      <hr class="border border-primary border-3" />
-      <Options optionType="toppings" />
-    </div>
-  );
+  return <OrderEntry />;
 }
 
 export default App;
