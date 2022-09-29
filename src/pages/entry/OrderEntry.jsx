@@ -1,10 +1,9 @@
-import Options from "./Options";
+import Options from './Options';
 
-export default function OrderEntry({ setOrderPhase }) {
+export default function OrderEntry() {
   return (
     <div>
       <Options optionType="scoops" />
-      <hr className="border border-primary border-3" />
       <Options optionType="toppings" />
     </div>
   );
