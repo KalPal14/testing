@@ -30,13 +30,6 @@ describe("OrderEntry", () => {
   });
 
   describe("Grand total", () => {
-    test("$00.00 by default", () => {
-      render(<OrderEntry />);
-      const grandTotal = screen.getByText(/Grand total: \$/i);
-
-      expect(grandTotal).toHaveTextContent("0.00");
-    });
-
     test("on Scoops adding", async () => {
       render(<OrderEntry />);
       const grandTotal = screen.getByText(/Grand total: \$/i);
@@ -46,6 +39,9 @@ describe("OrderEntry", () => {
       const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
         name: /Vanilla/i,
       });
+
+      //$00.00 by default
+      expect(grandTotal).toHaveTextContent("0.00");
 
       await userEvent.clear(chocolateScoopAmountInput);
       await userEvent.type(chocolateScoopAmountInput, "1");

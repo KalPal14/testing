@@ -29,13 +29,6 @@ describe("Options", () => {
     ]);
   });
 
-  test("Scoops total is 0.00 by default", () => {
-    render(<Options optionType="scoops" />);
-    const scoopsTotal = screen.getByText(/Scoops total:/i);
-
-    expect(scoopsTotal).toHaveTextContent("0.00");
-  });
-
   test("Scoops total when chouse scoops", async () => {
     render(<Options optionType="scoops" />);
     const scoopsTotal = screen.getByText(/Scoops total:/i);
@@ -45,6 +38,9 @@ describe("Options", () => {
     const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
       name: /Vanilla/i,
     });
+
+    //Scoops total is 0.00 by default
+    expect(scoopsTotal).toHaveTextContent("0.00");
 
     await userEvent.clear(chocolateScoopAmountInput);
     await userEvent.type(chocolateScoopAmountInput, "1");
@@ -63,13 +59,6 @@ describe("Options", () => {
     expect(scoopsTotal).toHaveTextContent("2.00");
   });
 
-  test("Toppings total is 0.00 by default", () => {
-    render(<Options optionType="toppings" />);
-    const toppingsTotal = screen.getByText(/Toppings total:/i);
-
-    expect(toppingsTotal).toHaveTextContent("0.00");
-  });
-
   test("Toppings total when chouse toppings", async () => {
     render(<Options optionType="toppings" />);
     const toppingsTotal = screen.getByText(/Toppings total:/i);
@@ -79,6 +68,9 @@ describe("Options", () => {
     const hotFudgeToppingCheckbox = await screen.findByRole("checkbox", {
       name: /Hot fudge/i,
     });
+
+    //Toppings total is 0.00 by default"
+    expect(toppingsTotal).toHaveTextContent("0.00");
 
     await userEvent.click(cherriesToppingCheckbox);
 
