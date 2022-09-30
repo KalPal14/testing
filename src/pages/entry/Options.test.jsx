@@ -57,9 +57,10 @@ describe("Options", () => {
     expect(scoopsTotal).toHaveTextContent("6.00");
 
     await userEvent.clear(vanillaScoopAmountInput);
+    await userEvent.clear(chocolateScoopAmountInput);
     await userEvent.type(vanillaScoopAmountInput, "1");
 
-    expect(scoopsTotal).toHaveTextContent("4.00");
+    expect(scoopsTotal).toHaveTextContent("2.00");
   });
 
   test("Toppings total is 0.00 by default", () => {
