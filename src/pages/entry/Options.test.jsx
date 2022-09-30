@@ -36,20 +36,7 @@ describe("Options", () => {
     expect(scoopsTotal).toHaveTextContent("0.00");
   });
 
-  test("Scoops total when chouse one scoop", async () => {
-    render(<Options optionType="scoops" />);
-    const scoopsTotal = screen.getByText(/Scoops total:/i);
-    const chocolateScoopAmountInput = await screen.findByRole("spinbutton", {
-      name: /Chocolate/i,
-    });
-
-    await userEvent.clear(chocolateScoopAmountInput);
-    await userEvent.type(chocolateScoopAmountInput, "1");
-
-    expect(scoopsTotal).toHaveTextContent("2.00");
-  });
-
-  test("Scoops total when chouse several scoops", async () => {
+  test("Scoops total when chouse scoops", async () => {
     render(<Options optionType="scoops" />);
     const scoopsTotal = screen.getByText(/Scoops total:/i);
     const chocolateScoopAmountInput = await screen.findByRole("spinbutton", {
@@ -61,10 +48,18 @@ describe("Options", () => {
 
     await userEvent.clear(chocolateScoopAmountInput);
     await userEvent.type(chocolateScoopAmountInput, "1");
+
+    expect(scoopsTotal).toHaveTextContent("2.00");
+
     await userEvent.clear(vanillaScoopAmountInput);
     await userEvent.type(vanillaScoopAmountInput, "2");
 
     expect(scoopsTotal).toHaveTextContent("6.00");
+
+    await userEvent.clear(vanillaScoopAmountInput);
+    await userEvent.type(vanillaScoopAmountInput, "1");
+
+    expect(scoopsTotal).toHaveTextContent("4.00");
   });
 
   test("Toppings total is 0.00 by default", () => {
@@ -74,19 +69,7 @@ describe("Options", () => {
     expect(toppingsTotal).toHaveTextContent("0.00");
   });
 
-  test("Toppings total when chouse one topping", async () => {
-    render(<Options optionType="toppings" />);
-    const toppingsTotal = screen.getByText(/Toppings total:/i);
-    const cherriesToppingCheckbox = await screen.findByRole("checkbox", {
-      name: /Cherries/i,
-    });
-
-    await userEvent.click(cherriesToppingCheckbox);
-
-    expect(toppingsTotal).toHaveTextContent("1.50");
-  });
-
-  test("Toppings total when chouse several toppings", async () => {
+  test("Toppings total when chouse toppings", async () => {
     render(<Options optionType="toppings" />);
     const toppingsTotal = screen.getByText(/Toppings total:/i);
     const cherriesToppingCheckbox = await screen.findByRole("checkbox", {
@@ -97,8 +80,15 @@ describe("Options", () => {
     });
 
     await userEvent.click(cherriesToppingCheckbox);
+
+    expect(toppingsTotal).toHaveTextContent("1.50");
+
     await userEvent.click(hotFudgeToppingCheckbox);
 
     expect(toppingsTotal).toHaveTextContent("3.00");
+
+    await userEvent.click(cherriesToppingCheckbox);
+
+    expect(toppingsTotal).toHaveTextContent("1.50");
   });
 });
