@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Link } from "react-router-dom";
 
 export default function SummaryForm() {
   const [tcChecked, setTcChecked] = useState(false);
@@ -32,9 +33,11 @@ export default function SummaryForm() {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={!tcChecked}>
-        Confirm order
-      </Button>
+      <Link to="/confirmed">
+        <Button variant="primary" type="submit" disabled={!tcChecked}>
+          Confirm order
+        </Button>
+      </Link>
     </Form>
   );
 }
