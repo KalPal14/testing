@@ -30,7 +30,7 @@ describe("OrderEntry", () => {
   });
 
   describe("create order button", () => {
-    test("checking button state when manipulating an order", async () => {
+    test("is disablet if user don`t choose scoop", async () => {
       render(<OrderEntry />);
       const orderButton = screen.getByRole("button", { name: /Order Sundae!/ });
       const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
