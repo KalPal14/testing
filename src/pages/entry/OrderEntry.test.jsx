@@ -29,6 +29,38 @@ describe("OrderEntry", () => {
     });
   });
 
+  describe("create order button", () => {
+    test("checking button state when manipulating an order", async () => {
+      render(<OrderEntry />);
+      const orderButton = screen.getByRole("button", { name: /Order Sundae!/ });
+      const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
+        name: /Vanilla/i,
+      });
+      const cherriesToppingCheckbox = await screen.findByRole("checkbox", {
+        name: /Cherries/i,
+      });
+
+      expect(orderButton).toBeDisabled();
+
+      await userEvent.click(cherriesToppingCheckbox);
+
+      expect(orderButton).toBeDisabled();
+
+      await userEvent.clear(vanillaScoopAmountInput);
+      await userEvent.type(vanillaScoopAmountInput, "1");
+
+      expect(orderButton).toBeEnabled();
+
+      await userEvent.click(cherriesToppingCheckbox);
+
+      expect(orderButton).toBeEnabled();
+
+      await userEvent.clear(vanillaScoopAmountInput);
+
+      expect(orderButton).toBeDisabled();
+    });
+  });
+
   describe("Grand total", () => {
     test("on Scoops adding", async () => {
       render(<OrderEntry />);
