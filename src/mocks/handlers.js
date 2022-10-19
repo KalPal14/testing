@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import { ORDER_NUMBER } from "../constants/api";
 
 export const handlers = [
   rest.get("http://localhost:3030/scoops", (req, res, ctx) => {
@@ -18,6 +19,14 @@ export const handlers = [
         { name: "M&Ms", imagePath: "/images/m-and-ms.png" },
         { name: "Hot fudge", imagePath: "/images/hot-fudge.png" },
       ])
+    );
+  }),
+  rest.post("http://localhost:3030/order", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        orderNumber: ORDER_NUMBER,
+      })
     );
   }),
 ];
