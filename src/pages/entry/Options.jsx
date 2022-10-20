@@ -33,6 +33,7 @@ export default function Options({ optionType }) {
       key={item.name}
       name={item.name}
       imagePath={item.imagePath}
+      defaultValue={orderDetails[optionType].get(item.name) || 0}
       updateItemCount={(itemName, newItemCount) =>
         updateItemCount(itemName, newItemCount || 0, optionType)
       }

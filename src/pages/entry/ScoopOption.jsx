@@ -2,7 +2,12 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-export default function ScoopOption({ name, imagePath, updateItemCount }) {
+export default function ScoopOption({
+  name,
+  defaultValue,
+  imagePath,
+  updateItemCount,
+}) {
   const handleChange = (event) => {
     updateItemCount(name, event.target.value || "0");
   };
@@ -25,7 +30,7 @@ export default function ScoopOption({ name, imagePath, updateItemCount }) {
         <Col xs="5" style={{ textAlign: "left" }}>
           <Form.Control
             type="number"
-            defaultValue={0}
+            defaultValue={defaultValue}
             onChange={handleChange}
           />
         </Col>

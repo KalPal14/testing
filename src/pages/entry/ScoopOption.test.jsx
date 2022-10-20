@@ -9,10 +9,11 @@ describe("ScoopOption", () => {
     jest.restoreAllMocks();
   });
 
-  test("checking default render", () => {
+  test("checking default render if default value 0", () => {
     render(
       <ScoopOption
         name="Vanila"
+        defaultValue={0}
         imagePath="vanila.jpg"
         updateItemCount={mockUpdateItemCount}
       />
@@ -25,10 +26,28 @@ describe("ScoopOption", () => {
     expect(scoopInput).toHaveValue(0);
   });
 
+  test("checking default render if default value 2", () => {
+    render(
+      <ScoopOption
+        name="Vanila"
+        defaultValue={2}
+        imagePath="vanila.jpg"
+        updateItemCount={mockUpdateItemCount}
+      />
+    );
+    const scoopImg = screen.getByRole("img", { name: /Vanila scoop/i });
+    const scoopInput = screen.getByRole("spinbutton", { name: /Vanila/i });
+
+    expect(scoopImg).toBeInTheDocument();
+    expect(scoopInput).toBeInTheDocument();
+    expect(scoopInput).toHaveValue(2);
+  });
+
   test("checking the operation of the component when we clear soop input", async () => {
     render(
       <ScoopOption
         name="Vanila"
+        defaultValue={0}
         imagePath="vanila.jpg"
         updateItemCount={mockUpdateItemCount}
       />
@@ -45,6 +64,7 @@ describe("ScoopOption", () => {
     render(
       <ScoopOption
         name="Vanila"
+        defaultValue={0}
         imagePath="vanila.jpg"
         updateItemCount={mockUpdateItemCount}
       />
@@ -62,6 +82,7 @@ describe("ScoopOption", () => {
     render(
       <ScoopOption
         name="Vanila"
+        defaultValue={0}
         imagePath="vanila.jpg"
         updateItemCount={mockUpdateItemCount}
       />
