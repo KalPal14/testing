@@ -84,4 +84,27 @@ describe("Options", () => {
 
     expect(toppingsTotal).toHaveTextContent("1.50");
   });
+
+  test("Scoops total don`t update if type wrong scoop input value", async () => {
+    render(<Options optionType="scoops" />);
+    const scoopsTotal = await screen.findByText(/Scoops total: \$/);
+    const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
+      name: /vanilla/i,
+    });
+    const chocolateScoopAmountInput = await screen.findByRole("spinbutton", {
+      name: /Chocolate/i,
+    });
+
+    await userEvent.clear(vanillaScoopAmountInput);
+    await userEvent.type(vanillaScoopAmountInput, "-2");
+
+    expect(scoopsTotal).toHaveTextContent("0.00");
+
+    await userEvent.clear(vanillaScoopAmountInput);
+    await userEvent.type(vanillaScoopAmountInput, "2");
+    await userEvent.clear(chocolateScoopAmountInput);
+    await userEvent.type(chocolateScoopAmountInput, "-2");
+
+    expect(scoopsTotal).toHaveTextContent("4.00");
+  });
 });

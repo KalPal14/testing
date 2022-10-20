@@ -58,6 +58,7 @@ describe("ScoopOption", () => {
 
     expect(scoopInput).toHaveValue(null);
     expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "0");
+    expect(scoopInput).not.toHaveClass("is-invalid");
   });
 
   test("checking the operation of the component when we type correct scoop amount on scoop input", async () => {
@@ -76,6 +77,7 @@ describe("ScoopOption", () => {
 
     expect(scoopInput).toHaveValue(2);
     expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "2");
+    expect(scoopInput).not.toHaveClass("is-invalid");
   });
 
   test("checking the operation of the component when we type uncorrect scoop amount on scoop input", async () => {
@@ -94,11 +96,53 @@ describe("ScoopOption", () => {
 
     expect(scoopInput).toHaveValue(-2);
     expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "-2");
+    expect(scoopInput).toHaveClass("is-invalid");
 
     await userEvent.clear(scoopInput);
     await userEvent.type(scoopInput, "2.5");
 
     expect(scoopInput).toHaveValue(2.5);
     expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "2.5");
+    expect(scoopInput).toHaveClass("is-invalid");
+
+    await userEvent.clear(scoopInput);
+    await userEvent.type(scoopInput, "11");
+
+    expect(scoopInput).toHaveValue(11);
+    expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "11");
+    expect(scoopInput).toHaveClass("is-invalid");
+  });
+
+  test("checking the operation of the component when we type uncorrect and correct scoop amount on scoop input", async () => {
+    render(
+      <ScoopOption
+        name="Vanila"
+        defaultValue={0}
+        imagePath="vanila.jpg"
+        updateItemCount={mockUpdateItemCount}
+      />
+    );
+    const scoopInput = screen.getByRole("spinbutton", { name: /Vanila/i });
+
+    await userEvent.clear(scoopInput);
+    await userEvent.type(scoopInput, "2");
+
+    expect(scoopInput).toHaveValue(2);
+    expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "2");
+    expect(scoopInput).not.toHaveClass("is-invalid");
+
+    await userEvent.clear(scoopInput);
+    await userEvent.type(scoopInput, "-2");
+
+    expect(scoopInput).toHaveValue(-2);
+    expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "-2");
+    expect(scoopInput).toHaveClass("is-invalid");
+
+    await userEvent.clear(scoopInput);
+    await userEvent.type(scoopInput, "2");
+
+    expect(scoopInput).toHaveValue(2);
+    expect(mockUpdateItemCount).toHaveBeenCalledWith("Vanila", "2");
+    expect(scoopInput).not.toHaveClass("is-invalid");
   });
 });

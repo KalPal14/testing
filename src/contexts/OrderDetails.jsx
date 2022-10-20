@@ -38,6 +38,13 @@ export function OrderDetailsProvider(props) {
     toppings: zeroCurrency,
     grandTotal: zeroCurrency,
   });
+  const [err, setErr] = useState(false);
+
+  const validityCheck = (value) => {
+    const n = Number(value);
+    if (n >= 0 && n <= 10 && Math.floor(n) === n) return true;
+    return false;
+  };
 
   useEffect(() => {
     const scoopsSubtotal = calculateSubtotal("scoops", optionCounts);
@@ -52,6 +59,14 @@ export function OrderDetailsProvider(props) {
 
   const value = useMemo(() => {
     function updateItemCount(itemName, newItemCount, optionType) {
+      const isValid = validityCheck(newItemCount);
+      if (!isValid) {
+        setErr(true);
+        return;
+      } else {
+        setErr(false);
+      }
+
       const newOptionCounts = { ...optionCounts };
 
       // update option count for this item with the new value
@@ -69,7 +84,7 @@ export function OrderDetailsProvider(props) {
     }
     // getter: object containing option counts for scoops and toppings, subtotals and totals
     // setter: updateOptionCount
-    return [{ ...optionCounts, totals }, updateItemCount, resetOrder];
-  }, [optionCounts, totals]);
+    return [{ ...optionCounts, totals, err }, updateItemCount, resetOrder];
+  }, [optionCounts, totals, err]);
   return <OrderDetails.Provider value={value} {...props} />;
 }

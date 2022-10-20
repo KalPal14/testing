@@ -59,6 +59,24 @@ describe("OrderEntry", () => {
 
       expect(orderButton).toBeDisabled();
     });
+
+    test("disablet if type wrong scoop input value", async () => {
+      render(<OrderEntry />);
+      const orderButton = screen.getByRole("button", { name: /Order Sundae!/ });
+      const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
+        name: /vanilla/i,
+      });
+
+      await userEvent.clear(vanillaScoopAmountInput);
+      await userEvent.type(vanillaScoopAmountInput, "-2");
+
+      expect(orderButton).toBeDisabled();
+
+      await userEvent.clear(vanillaScoopAmountInput);
+      await userEvent.type(vanillaScoopAmountInput, "2");
+
+      expect(orderButton).toBeEnabled();
+    });
   });
 
   describe("Grand total", () => {
@@ -146,6 +164,33 @@ describe("OrderEntry", () => {
       await userEvent.click(cherriesToppingCheckbox);
 
       expect(grandTotal).toHaveTextContent("3.50");
+    });
+
+    test("don`t update if type wrong scoop input value", async () => {
+      render(<OrderEntry />);
+      const grandTotal = screen.getByText(/Grand total: \$/i);
+      const vanillaScoopAmountInput = await screen.findByRole("spinbutton", {
+        name: /vanilla/i,
+      });
+      const chocolateScoopAmountInput = await screen.findByRole("spinbutton", {
+        name: /Chocolate/i,
+      });
+      const cherriesToppingCheckbox = await screen.findByRole("checkbox", {
+        name: /Cherries/i,
+      });
+
+      await userEvent.clear(vanillaScoopAmountInput);
+      await userEvent.type(vanillaScoopAmountInput, "-2");
+
+      expect(grandTotal).toHaveTextContent("0.00");
+
+      await userEvent.clear(vanillaScoopAmountInput);
+      await userEvent.type(vanillaScoopAmountInput, "2");
+      await userEvent.clear(chocolateScoopAmountInput);
+      await userEvent.type(chocolateScoopAmountInput, "-2");
+      await userEvent.click(cherriesToppingCheckbox);
+
+      expect(grandTotal).toHaveTextContent("5.50");
     });
   });
 });

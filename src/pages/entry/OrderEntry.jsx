@@ -5,8 +5,8 @@ import { useOrderDetails } from "../../contexts/OrderDetails";
 
 export default function OrderEntry() {
   const [orderDetails] = useOrderDetails();
-
-  const isOrderBtnDisable = orderDetails.totals.scoops === "$0.00";
+  const isOrderBtnDisable =
+    orderDetails.totals.scoops === "$0.00" || orderDetails.err;
   return (
     <div>
       <h1>Design Your Sundae!</h1>
