@@ -41,9 +41,11 @@ export default function OrderConfirmation() {
           </p>
         </>
       )}
-      <Link to="/">
-        <Button onClick={handleClick}>Create new order</Button>
-      </Link>
+      <Button>
+        <Link onClick={handleClick} to="/">
+          Create new order
+        </Link>
+      </Button>
     </div>
   );
 }

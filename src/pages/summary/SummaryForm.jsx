@@ -33,11 +33,9 @@ export default function SummaryForm() {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Link to="/confirmed">
-        <Button variant="primary" type="submit" disabled={!tcChecked}>
-          Confirm order
-        </Button>
-      </Link>
+      <Button variant="primary" type="submit" disabled={!tcChecked}>
+        <Link to="/confirmed">Confirm order</Link>
+      </Button>
     </Form>
   );
 }

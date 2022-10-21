@@ -28,7 +28,7 @@ describe("OrderConfirmation", () => {
       .spyOn(orderDetailsContext, "useOrderDetails")
       .mockReturnValue([null, null, jest.fn()]);
     render(<OrderConfirmation />);
-    const newOrderButton = screen.getByRole("button", {
+    const newOrderButton = screen.getByRole("link", {
       name: /Create new order/i,
     });
     const mockResetOrder = mockUseOrderDetails()[2];
