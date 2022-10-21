@@ -45,6 +45,7 @@ describe("OrderSummary", () => {
         scoops: new Map([
           ["Mint chip", 1],
           ["Vanilla", 2],
+          ["Chocolate", 0],
         ]),
         toppings: new Map([
           ["Hot fudge", 1],
