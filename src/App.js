@@ -1,32 +1,24 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
 
-export function replaceCamelWithSpaces(colorName) {
-  return colorName.replace(/\B([A-Z])\B/g, ' $1');
-}
+import OrderConfirmation from "./pages/confirmation/OrderConfirmation";
+import OrderEntry from "./pages/entry/OrderEntry";
+import OrderSummary from "./pages/summary/OrderSummary";
 
-function App() {
-  const [ buttonColor, setButtonColor ] = useState('MediumVioletRed');
-  const [ disabled, setDisabled ] = useState(false);
-  
-  const newButtonColor = buttonColor === 'MediumVioletRed' ? 'MidnightBlue' : 'MediumVioletRed';
-  
+import { OrderDetailsProvider } from "./contexts/OrderDetails";
+
+export default function App() {
   return (
-    <div>
-      <button
-        style={{backgroundColor: disabled ? 'gray' : buttonColor}}
-        onClick={() => setButtonColor(newButtonColor)}
-        disabled={disabled}
-      >Change to {replaceCamelWithSpaces(newButtonColor)}</button>
-    <br />
-    <input
-        type="checkbox"
-        id="disable-button-checkbox"
-        defaultChecked={disabled}
-        aria-checked={disabled}
-        onChange={(e) => setDisabled(e.target.checked)} />
-        <label htmlFor="disable-button-checkbox">Disable button</label>
-    </div>  
+    <OrderDetailsProvider>
+      <Container>
+        <Router>
+          <Routes>
+            <Route path="/" element={<OrderEntry />} />
+            <Route path="/summary" element={<OrderSummary />} />
+            <Route path="/confirmed" element={<OrderConfirmation />} />
+          </Routes>
+        </Router>
+      </Container>
+    </OrderDetailsProvider>
   );
 }
-
-export default App;
