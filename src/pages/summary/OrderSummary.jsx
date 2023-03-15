@@ -6,7 +6,7 @@ export default function OrderSummary() {
   const [orderDetails] = useOrderDetails();
 
   const scoopArray = Array.from(orderDetails.scoops.entries());
-  const scoopList = scoopArray.map(([key, value]) => {
+  const scoopList = [scoopArray || []].map(([key, value]) => {
     if (value) {
       return (
         <li key={key}>
